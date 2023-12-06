@@ -28,19 +28,19 @@ function PlotsnGraphs() {
     }, []); 
     
     useEffect(() => {
-      fetch('http://ec2-18-118-3-21.us-east-2.compute.amazonaws.com:5000/plot-bar').then(res => res.json()).then(data => {setBarplot(data);});}, []);
+      fetch('https://hirenr.pythonanywhere.com/plot-bar').then(res => res.json()).then(data => {setBarplot(data);});}, []);
       // console.log(barplot)
 
       useEffect(() => {
-      fetch('http://ec2-18-118-3-21.us-east-2.compute.amazonaws.com:5000/pie-chart-data').then(res => res.json()).then(data => {setPieplot(data);});}, []);
+      fetch('https://hirenr.pythonanywhere.com/pie-chart-data').then(res => res.json()).then(data => {setPieplot(data);});}, []);
       // console.log(pieplot)
     
       useEffect(() => {
-        fetch('http://ec2-18-118-3-21.us-east-2.compute.amazonaws.com:5000/pie-binary').then(res => res.json()).then(data => {setBinarypie(data);});}, []);
+        fetch('https://hirenr.pythonanywhere.com/pie-binary').then(res => res.json()).then(data => {setBinarypie(data);});}, []);
         // console.log(binarypie)
   
       useEffect(() => {
-      fetch('http://ec2-18-118-3-21.us-east-2.compute.amazonaws.com:5000/bar-binary').then(res => res.json()).then(data => {setBinaryBar(data);});}, []);
+      fetch('https://hirenr.pythonanywhere.com/bar-binary').then(res => res.json()).then(data => {setBinaryBar(data);});}, []);
 
     return (
       

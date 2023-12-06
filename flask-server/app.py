@@ -13,8 +13,10 @@ from sklearn.metrics import accuracy_score
 import boto3
 from botocore.exceptions import NoCredentialsError
 import requests
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def download_model_from_s3(bucket_name, file_key, local_path):
     aws_access_key_id='AKIAU6EA3JVX5E7IDAG3'

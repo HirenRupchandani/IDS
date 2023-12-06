@@ -56,8 +56,6 @@ function App() {
       setIsLoading(false);
     }, 2000); // Adjust the time as needed
     
-    
-    
   };
 
   const [data, setData] = useState([{}])
