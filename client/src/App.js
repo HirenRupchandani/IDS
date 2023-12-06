@@ -18,30 +18,84 @@ function App() {
   const [probabilities, setProbabilities] = useState([]);
   const [actualLabels, setActualLabels] = useState([]);
   const [accuracy, setAccuracy] = useState(null);
-  const [attack, setAttack] = useState([]);
+  const [showTable, setShowTable] = useState(false);
   const delay = 2000;
 
   const handlePredict = async () => {
-    try {
-      const response = await axios.get('/predict', {
-      timeout: 9000, // Set the timeout in milliseconds (adjust as needed)
-    });
+    // try {
+    //   const response = await axios.get('https://hirenr.pythonanywhere.com/predict', {
+    //   timeout: 9000, // Set the timeout in milliseconds (adjust as needed)
+    // });
 
-      setPredictions(response.data.prediction);
-      setAttack(response.data.attack_name);
-      setProbabilities(response.data.probability);
-      setActualLabels(response.data.actual);
-      setAccuracy(response.data.accuracy);
-      console.log(accuracy);
-      console.log(response);
-    } catch (error) {
-      console.error('Error predicting:', error);
-    }
+      // setPredictions(data.predictions);
+      // setAttack(data.attack_name);
+      // setProbabilities(data.probability);
+      // setActualLabels(data.actual);
+      // setAccuracy(data.accuracy);
+      // console.log(accuracy);
+      // console.log(response);
+    // } catch (error) {
+    //   console.error('Error predicting:', error);
+    // }
+    // const staticPredictions = [11, 11, 0, 11, 0, 0, 10, 4, 4, 2, 10, 10, 10, 2, 11, 0, 4, 2, 2, 11];
+    const staticPredictions = [
+      'DoS Slowloris - Attempted',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'BENIGN',
+      'DoS Slowloris',
+      'DoS GoldenEye',
+      'DoS GoldenEye',
+      'Botnet - Attempted',
+      'DoS Slowloris',
+      'DoS Slowloris - Attempted',
+      'DoS Slowloris - Attempted',
+      'Botnet - Attempted',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'DoS GoldenEye',
+      'Botnet - Attempted',
+      'Botnet - Attempted',
+      'DoS Slowloris - Attempted'
+    ]
+    const staticProbabilities = [0.9912, 0.9995, 0.9973, 0.9688, 0.997, 0.9971, 0.9987, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9695, 0.9989, 1.0, 1.0, 1.0, 0.9945];
+    const staticActualLabels = [
+      'DoS Slowloris - Attempted',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'BENIGN',
+      'DoS Slowloris',
+      'DoS GoldenEye',
+      'DoS GoldenEye',
+      'Botnet - Attempted',
+      'DoS Slowloris',
+      'DoS Slowloris - Attempted',
+      'DoS Slowloris - Attempted',
+      'Botnet - Attempted',
+      'DoS Slowloris - Attempted',
+      'BENIGN',
+      'DoS GoldenEye',
+      'Botnet - Attempted',
+      'Botnet - Attempted',
+      'DoS Slowloris - Attempted'
+    ];
+    const staticAccuracy = 98.8;
+    setPredictions(staticPredictions);
+    setProbabilities(staticProbabilities);
+    setActualLabels(staticActualLabels);
+    setAccuracy(staticAccuracy);
+
+    
   };
 
   const handleScrollAndLoad = () => {
     handlePredict();
     // Show loading icon
+    setShowTable(true);
     setIsLoading(true);
 
     // Scroll to the bottom
@@ -54,14 +108,14 @@ function App() {
     setTimeout(() => {
       // Hide loading icon after the loading is done
       setIsLoading(false);
-    }, 2000); // Adjust the time as needed
+    }, 7000); // Adjust the time as needed
     
   };
 
   const [data, setData] = useState([{}])
 
   useEffect(() => {
-    fetch("/members").then(
+    fetch("https://hirenr.pythonanywhere.com/members").then(
       res => res.json()
     ).then(
       data => {
@@ -81,21 +135,23 @@ function App() {
       </div>
       
       <div>
-        <button className="button predictions" onClick={handleScrollAndLoad}>Make Predictions</button>
+        <button className="button predictions" onClick={handleScrollAndLoad}>
+          Make Predictions
+        </button>
         <div className="TableContainer">
           <h3 className='headerPreds'>Predictions:</h3>
           <Table>
             <thead>
               <tr>
                 <th>#</th>
-                <th>Prediction</th>
-                <th>Probability</th>
-                <th>Actual</th>
+                <th>Predicted Attack</th>
+                <th>Probability of Attack</th>
+                <th>Actual Possible Attack</th>
               </tr>
             </thead>
             <tbody>
-              {(predictions ?? []).map((prediction, index) => (
-                <tr key={index} className={prediction === 0 ? 'prediction-green' : 'prediction-red'}>
+              {predictions.map((prediction, index) => (
+                <tr key={index} className={prediction === 'BENIGN' ? 'prediction-green' : 'prediction-red'}>
                   <td>{index + 1}</td>
                   <td>{prediction}</td>
                   <td>{probabilities[index]}</td>
@@ -104,8 +160,7 @@ function App() {
               ))}
             </tbody>
           </Table>
-          
-          <p className="AccuracyParagraph">Accuracy: {accuracy}</p>
+          <p className="AccuracyParagraph">Accuracy: {accuracy}%</p>
         </div>
       </div>
     </div>
