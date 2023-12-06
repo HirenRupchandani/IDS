@@ -19,8 +19,8 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 def download_model_from_s3(bucket_name, file_key, local_path):
-    aws_access_key_id='AKIAU6EA3JVX5E7IDAG3'
-    aws_secret_access_key='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'
+    aws_access_key_id='#'
+    aws_secret_access_key='#'
     aws_session_token=None
 
     s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id,
@@ -38,8 +38,8 @@ def download_model_from_s3(bucket_name, file_key, local_path):
 
 def read_csv_from_s3(bucket_name, file_key):
     # Set up AWS credentials and session
-    aws_access_key_id='AKIAU6EA3JVX5E7IDAG3'
-    aws_secret_access_key='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'
+    aws_access_key_id='#'
+    aws_secret_access_key='#'
     aws_session_token=None
 
     s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id,
