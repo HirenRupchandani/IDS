@@ -14,7 +14,7 @@ function Header() {
           <div className="buttons-container">
             {/* <button className="button analytics">Advanced Analytics</button> 
             */}
-            <h1 >Intrusion Master</h1>
+            <h1 >Anomaly Finder</h1>
           </div>
           <div>
             <DarkModeToggle />
